@@ -11,3 +11,4 @@ gradle-app.setting
 # eclipse stuff
 .classpath
 .project
+/bin/
