@@ -24,6 +24,6 @@ ADD src /tmp/
 
 RUN /tmp/.gradlew build
 
-RUN cp -a springboots2idemo*.jar /opt/app-root/springboots2idemo.jar
+RUN cp -a  /tmp/build/libs/springboots2idemo*.jar /opt/app-root/springboots2idemo.jar
 
 CMD java -jar /opt/app-root/springboots2idemo.jar
