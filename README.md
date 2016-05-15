@@ -11,7 +11,7 @@ $ oc new-project example-spring-boot
 
 ### Create Application and expose Service
 ```
-$ oc new-app https://github.com/appuio/example-spring-boot.git --strategy=docker --name=appuio-spring-boot-ex
+$ oc new-app https://github.com/appuio/example-spring-boot-helloworld.git --strategy=docker --name=appuio-spring-boot-ex
 
 $ oc expose service appuio-spring-boot-ex
 ```
