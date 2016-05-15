@@ -26,4 +26,6 @@ RUN /tmp/.gradlew build
 
 RUN cp -a  /tmp/build/libs/springboots2idemo*.jar /opt/app-root/springboots2idemo.jar
 
-CMD java -jar /opt/app-root/springboots2idemo.jar
+USER 1001
+
+CMD java -Xmx64m -Xss512k -jar /opt/app-root/springboots2idemo.jar
