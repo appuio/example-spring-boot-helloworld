@@ -13,19 +13,20 @@ LABEL io.k8s.description="Example Spring Boot App" \
       
 # Install Java
 RUN INSTALL_PKGS="tar unzip bc which lsof java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
-    yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
+    yum install -y $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all -y && \
     mkdir -p /opt/s2i/destination
-    
-ADD gradlew /tmp/
-ADD build.gradle /tmp/
-ADD src /tmp/
-
-RUN /tmp/.gradlew build
-
-RUN cp -a  /tmp/build/libs/springboots2idemo*.jar /opt/app-root/springboots2idemo.jar
 
 USER 1001
+    
+ADD ./gradlew /opt/app-root/src/
+ADD gradle /opt/app-root/src/gradle
+ADD build.gradle /opt/app-root/src/
+ADD src /opt/app-root/src/src
+
+RUN sh /opt/app-root/src/gradlew build
+
+RUN cp -a  /opt/app-root/src/build/libs/springboots2idemo*.jar /opt/app-root/springboots2idemo.jar
 
 CMD java -Xmx64m -Xss512k -jar /opt/app-root/springboots2idemo.jar
