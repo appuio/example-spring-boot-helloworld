@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @XmlRootElement
-@Table(name = "Hello", uniqueConstraints = @UniqueConstraint(columnNames = "id"))
+@Table(name = "hello", uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 public class Hello implements Serializable {
     /****/
     private static final long serialVersionUID = 1L;

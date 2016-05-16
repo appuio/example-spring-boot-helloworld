@@ -4,7 +4,7 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet author="appuio" id="1-createTableHello">
-		<createTable remarks="A String" tableName="Hello">
+		<createTable remarks="A String" tableName="hello">
 			<column name="id" type="BIGINT" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false" />
 			</column>
