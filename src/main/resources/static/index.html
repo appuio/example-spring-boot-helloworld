@@ -118,7 +118,7 @@
 					type : 'POST',
 					success : function(data) {
 						//console.log("success: " + data);
-						$('#result').text(data.name + ' ' + data.frontend);
+						$('#result').text(data.name);
 						reloadHelloList();
 					}
 				}).error(function() {
