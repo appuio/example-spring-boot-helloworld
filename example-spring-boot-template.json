@@ -1,0 +1,373 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "example-spring-boot",
+        "creationTimestamp": null
+    },
+    "objects": [
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "example-spring-boot",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "example-spring-boot"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp",
+                    "openshift.io/image.dockerRepositoryCheck": "2016-05-17T17:13:17Z"
+                }
+            },
+            "spec": {
+                "dockerImageRepository": "appuio/example-spring-boot"
+            },
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "example-spring-boot",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "example-spring-boot"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "example-spring-boot"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "example-spring-boot:latest"
+                            }
+                        }
+                    }
+                ],
+                "replicas": 2,
+                "selector": {
+                    "app": "example-spring-boot",
+                    "deploymentconfig": "example-spring-boot"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "example-spring-boot",
+                            "deploymentconfig": "example-spring-boot"
+                        },
+                        "annotations": {
+                            "openshift.io/generated-by": "OpenShiftNewApp"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "example-spring-boot",
+                                "image": "appuio/example-spring-boot",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "SPRING_DATASOURCE_DRIVER_CLASS_NAME",
+                                        "value": "${MYSQL_DRIVER}"
+                                    },
+                                    {
+                                        "name": "SPRING_DATASOURCE_PASSWORD",
+                                        "value": "${MYSQL_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "SPRING_DATASOURCE_URL",
+                                        "value": "${MYSQL_DATASOURCE}"
+                                    },
+                                    {
+                                        "name": "SPRING_DATASOURCE_USERNAME",
+                                        "value": "${MYSQL_USER}"
+                                    }
+                                ],
+                                "resources": {},
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 9000,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 2
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mysql",
+                "creationTimestamp": null,
+                "labels": {
+                    "template": "mysql-ephemeral-template"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "containerNames": [
+                                "mysql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "namespace": "openshift",
+                                "name": "mysql:latest"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "name": "mysql"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "mysql"
+                        },
+                        "annotations": {
+                            "openshift.io/generated-by": "OpenShiftNewApp"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "mysql-data",
+                                "emptyDir": {}
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "mysql",
+                                "image": "registry.access.redhat.com/rhscl/mysql-56-rhel7:latest",
+                                "ports": [
+                                    {
+                                        "containerPort": 3306,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MYSQL_USER",
+                                        "value": "${MYSQL_USER}"
+                                    },
+                                    {
+                                        "name": "MYSQL_PASSWORD",
+                                        "value": "${MYSQL_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MYSQL_DATABASE",
+                                        "value": "${MYSQL_DATABASE_NAME}"
+                                    }
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "mysql-data",
+                                        "mountPath": "/var/lib/mysql/data"
+                                    }
+                                ],
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent",
+                                "securityContext": {
+                                    "capabilities": {},
+                                    "privileged": false
+                                }
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "example-spring-boot",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "example-spring-boot"
+                },
+                "annotations": {
+                    "openshift.io/host.generated": "true"
+                }
+            },
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "kind": "Service",
+                    "name": "example-spring-boot"
+                },
+                "port": {
+                    "targetPort": 8080
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "example-spring-boot",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "example-spring-boot"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "8080-tcp",
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app": "example-spring-boot",
+                    "deploymentconfig": "example-spring-boot"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mysql",
+                "creationTimestamp": null,
+                "labels": {
+                    "template": "mysql-ephemeral-template"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "protocol": "TCP",
+                        "port": 3306,
+                        "targetPort": 3306
+                    }
+                ],
+                "selector": {
+                    "name": "mysql"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "name": "APPLICATION_DOMAIN",
+            "description": "The exposed hostname that will route to the service, if left blank a value will be defaulted."
+        },
+        {
+            "name": "DATABASE_SERVICE_NAME",
+            "description": "Database service name",
+            "value": "postgresql"
+        },
+        {
+            "name": "MYSQL_DATABASE_NAME",
+            "description": "Database name",
+            "value": "appuio"
+        },
+        {
+            "name": "MYSQL_USER",
+            "description": "Database user name",
+            "value": "appuio"
+        },
+        {
+            "name": "MYSQL_PASSWORD",
+            "description": "Database user password",
+            "value": "appuio"
+        },
+        {
+            "name": "MYSQL_DATASOURCE",
+            "description": "Database Datasource for Spring boot app",
+            "value": "jdbc:mysql://mysql.techlab.svc.cluster.local/appuio"
+        },
+        {
+            "name": "MYSQL_DRIVER",
+            "description": "Database driver class password",
+            "value": "com.mysql.jdbc.Driver"
+        }
+    ]
+}
