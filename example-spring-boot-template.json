@@ -340,11 +340,6 @@
             "description": "The exposed hostname that will route to the service, if left blank a value will be defaulted."
         },
         {
-            "name": "DATABASE_SERVICE_NAME",
-            "description": "Database service name",
-            "value": "postgresql"
-        },
-        {
             "name": "MYSQL_DATABASE_NAME",
             "description": "Database name",
             "value": "appuio"
@@ -362,7 +357,7 @@
         {
             "name": "MYSQL_DATASOURCE",
             "description": "Database Datasource for Spring boot app",
-            "value": "jdbc:mysql://mysql.techlab.svc.cluster.local/appuio"
+            "value": "jdbc:mysql://mysql/appuio?autoReconnect=true"
         },
         {
             "name": "MYSQL_DRIVER",
