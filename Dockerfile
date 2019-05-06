@@ -2,7 +2,7 @@ FROM fabric8/java-centos-openjdk8-jdk
 
 MAINTAINER Thomas Philipona <philipona@puzzle.ch>
 
-EXPOSE 8080
+EXPOSE 8080 9000
 
 
 LABEL io.k8s.description="Example Spring Boot App" \
