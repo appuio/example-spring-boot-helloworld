@@ -12,3 +12,8 @@ gradle-app.setting
 .settings/
 .project
 /bin/
+
+# idea stuff
+.idea/
+*.iml
+
