@@ -2,6 +2,7 @@ package ch.appuio.techlab.controller;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -44,7 +45,7 @@ public class HelloRestController {
 	}
 	
 	@RequestMapping(value = "/{helloid}", method = RequestMethod.GET)
-	public Hello get(@PathVariable Long helloid) {
-		return this.helloRepository.findOne(helloid);
+	public Optional<Hello> get(@PathVariable Long helloid) {
+		return this.helloRepository.findById(helloid);
 	}
 }
