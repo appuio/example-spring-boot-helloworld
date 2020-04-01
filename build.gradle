@@ -14,8 +14,8 @@ repositories {
 	mavenCentral()
 }
 
-jar {
-	baseName = 'springboots2idemo'
+bootJar {
+   baseName = 'springboots2idemo'
 }
 
 repositories {
