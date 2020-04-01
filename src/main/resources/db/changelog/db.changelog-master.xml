@@ -18,7 +18,5 @@
 			<column name="frontend" type="varchar(50)"/>
 			<column name="created" type="TIMESTAMP"/>
 		</createTable>
-		<createSequence sequenceName="HIBERNATE_SEQUENCE"
-            startValue="1"/>
 	</changeSet>
 </databaseChangeLog>
