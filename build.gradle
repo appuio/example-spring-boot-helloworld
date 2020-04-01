@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '1.5.17.RELEASE'
+	id 'org.springframework.boot' version '2.2.6.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 	id 'eclipse'
@@ -7,8 +7,8 @@ plugins {
 
 group = 'ch.appuio.techlab'
 version = '0.1.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-targetCompatibility = 1.8
+sourceCompatibility = '11'
+targetCompatibility = 11
 
 repositories {
 	mavenCentral()
@@ -24,17 +24,19 @@ repositories {
 
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation('org.springframework.boot:spring-boot-starter')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.liquibase:liquibase-core')
-	runtime('com.h2database:h2')
-	runtime('mysql:mysql-connector-java')
-	runtime('org.postgresql:postgresql')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	runtimeOnly('com.h2database:h2')
+	runtimeOnly('mysql:mysql-connector-java')
+	runtimeOnly('org.postgresql:postgresql')
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
 }
 
 
