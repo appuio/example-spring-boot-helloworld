@@ -25,3 +25,8 @@ Take the pre built image from Dockerhub
 ```bash
 $ oc new-app appuio/example-spring-boot
 ```
+
+### Enppoints
+
+* Health: <http://localhost:9000/health>
+* Prometheus: <http://localhost:9000/prometheus>
