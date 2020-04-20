@@ -31,6 +31,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.liquibase:liquibase-core')
+	compile('io.micrometer:micrometer-registry-prometheus')
 	runtimeOnly('com.h2database:h2')
 	runtimeOnly('mysql:mysql-connector-java')
 	runtimeOnly('org.postgresql:postgresql')
