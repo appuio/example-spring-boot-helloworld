@@ -13,7 +13,7 @@ LABEL io.k8s.description="Example Spring Boot App" \
 RUN mkdir -p /tmp/src/
 ADD . /tmp/src/
 
-RUN cd /tmp/src && sh gradlew build
+RUN cd /tmp/src && sh gradlew build -Dorg.gradle.daemon=false
 
 RUN cp -a  /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2idemo.jar
 
