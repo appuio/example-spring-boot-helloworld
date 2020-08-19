@@ -7,15 +7,15 @@ This is a Spring Boot Example Application
 ### Create New OpenShift Project
 
 ```bash
-$ oc new-project example-spring-boot
+oc new-project example-spring-boot
 ```
 
 ### Docker Build on APPUiO - Create Application and expose Service
 
 ```bash
-$ oc new-app https://github.com/appuio/example-spring-boot-helloworld.git --strategy=docker --name=appuio-spring-boot-ex
+oc new-app https://github.com/appuio/example-spring-boot-helloworld.git --strategy=docker --name=appuio-spring-boot-ex
 
-$ oc expose service appuio-spring-boot-ex
+oc expose service appuio-spring-boot-ex
 ```
 
 ### Image from DockerHub
@@ -23,10 +23,25 @@ $ oc expose service appuio-spring-boot-ex
 Take the pre built image from Dockerhub
 
 ```bash
-$ oc new-app appuio/example-spring-boot
+oc new-app appuio/example-spring-boot
 ```
 
-### Enppoints
+## Local Build and Test
 
+Build Image with buildah:
+
+```bash
+buildah bud -t example-spring-boot-helloworld .
+```
+
+Run Image with podman:
+
+```bash
+podman run -ti -p 8080:8080 -p 9000:9000 localhost/example-spring-boot-helloworld:latest
+```
+
+### Endpoints
+
+* Application: <http://localhost:8080>
 * Health: <http://localhost:9000/health>
 * Prometheus: <http://localhost:9000/prometheus>

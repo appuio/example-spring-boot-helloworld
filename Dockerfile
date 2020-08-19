@@ -1,6 +1,6 @@
 FROM fabric8/java-centos-openjdk11-jdk
 
-MAINTAINER Thomas Philipona <philipona@puzzle.ch>
+LABEL maintainer="philipona@puzzle.ch"
 
 EXPOSE 8080 9000
 
@@ -16,5 +16,3 @@ ADD . /tmp/src/
 RUN cd /tmp/src && sh gradlew build -Dorg.gradle.daemon=false
 
 RUN cp -a  /tmp/src/build/libs/springboots2idemo*.jar /deployments/springboots2idemo.jar
-
-
