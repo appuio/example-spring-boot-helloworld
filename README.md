@@ -28,6 +28,22 @@ oc new-app appuio/example-spring-boot
 
 ## Local Build and Test
 
+### Gradle
+
+Build application with gradle:
+
+```bash
+./gradlew clean build
+```
+
+Run application with gradle:
+
+```bash
+./gradlew bootRun
+```
+
+### Container
+
 Build Image with buildah:
 
 ```bash
@@ -40,7 +56,7 @@ Run Image with podman:
 podman run -ti -p 8080:8080 -p 9000:9000 localhost/example-spring-boot-helloworld:latest
 ```
 
-### Endpoints
+## Endpoints
 
 * Application: <http://localhost:8080>
 * Health: <http://localhost:9000/health>
