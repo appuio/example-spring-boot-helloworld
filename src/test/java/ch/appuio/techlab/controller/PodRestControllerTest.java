@@ -8,8 +8,10 @@ public class PodRestControllerTest {
 
     @Test
     public void getPodDescription() {
-        // when
+        // given
         PodRestController controller = new PodRestController();
+
+        // when
         String podDescription = controller.pod();
 
         // then
