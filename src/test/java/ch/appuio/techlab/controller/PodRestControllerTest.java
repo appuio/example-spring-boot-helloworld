@@ -1,6 +1,6 @@
 package ch.appuio.techlab.controller;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
 
@@ -15,6 +15,6 @@ public class PodRestControllerTest {
         String podDescription = controller.pod();
 
         // then
-        assertThat(podDescription, is("Pod: null"));
+        assertThat(podDescription, startsWith("Pod: "));
     }
 }
