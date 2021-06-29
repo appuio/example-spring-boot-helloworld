@@ -1,0 +1,12 @@
+.kubectl:
+  image: registry.puzzle.ch/docker.io/alpine:latest
+  before_script:
+  - "[[ -z ${KUBECONFIG_CONTENT} ]] && echo 'no set yet'"
+  - wget https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl
+  - chmod +x ./kubectl
+  - mv ./kubectl /usr/local/bin/kubectl
+  - mkdir -p ~/.kube/
+  - echo $KUBECONFIG_CONTENT | base64 -d > ~/.kube/config
+
+
+
