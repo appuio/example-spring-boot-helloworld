@@ -90,7 +90,7 @@
                         "containers": [
                             {
                                 "name": "example-spring-boot",
-                                "image": "appuio/example-spring-boot",
+                                "image": "quay.io/appuio/example-spring-boot",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
