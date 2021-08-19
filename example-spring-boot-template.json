@@ -21,7 +21,7 @@
                 }
             },
             "spec": {
-                "dockerImageRepository": "appuio/example-spring-boot"
+                "dockerImageRepository": "quay.io/appuio/example-spring-boot"
             },
             "status": {
                 "dockerImageRepository": ""
