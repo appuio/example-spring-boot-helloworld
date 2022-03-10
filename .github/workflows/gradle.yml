@@ -80,6 +80,7 @@ jobs:
         run: echo "hello world"
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     services:
       spring-boot-app:
