@@ -67,7 +67,7 @@ jobs:
       with:
         who-to-greet: Mona-the-Octocat-${{ steps.date.outputs.date }}
     - name: Clean Gradle build
-      run: ./gradlew clean
+      run: ./gradlew clean && rm -rf .gradle/
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag example-spring-boot-helloworld:${{ steps.date.outputs.date }}
     - uses: docker/build-push-action@v2
