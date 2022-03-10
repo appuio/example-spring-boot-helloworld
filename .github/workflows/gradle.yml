@@ -69,17 +69,25 @@ jobs:
     - name: Clean Gradle build
       run: ./gradlew clean && rm -rf .gradle/
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag example-spring-boot-helloworld:${{ steps.date.outputs.date }}
+      run: docker build . --file Dockerfile --tag example-spring-boot-helloworld:latest
     - uses: docker/build-push-action@v2
       with:
-        tags: example-spring-boot-helloworld:${{ steps.date.outputs.date }}
+        tags: example-spring-boot-helloworld:latest
         push: false
-        
-  container:
+    - uses: addnab/docker-run-action@v3
+      with:
+        image: example-spring-boot-helloworld:latest
+        run: echo "hello world"
+
+  test:
     runs-on: ubuntu-latest
-    container: example-spring-boot-helloworld:${{ steps.date.outputs.date }}
+    services:
+      spring-boot-app:
+        image: example-spring-boot-helloworld:latest
+
     steps:
     - name: Run in container
       run: |
         echo This job does specify a container.
         echo It runs in the container instead of the VM.
+        curl http://spring-boot-app:9000/health
