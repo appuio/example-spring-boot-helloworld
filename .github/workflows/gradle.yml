@@ -74,7 +74,12 @@ jobs:
       with:
         tags: example-spring-boot-helloworld:${{ steps.date.outputs.date }}
         push: false
-    - uses: addnab/docker-run-action@v3
-      with:
-        image: example-spring-boot-helloworld:${{ steps.date.outputs.date }}
-        run: echo "hello world"
+        
+  container:
+    runs-on: ubuntu-latest
+    container: example-spring-boot-helloworld:${{ steps.date.outputs.date }}
+    steps:
+    - name: Run in container
+      run: |
+        echo This job does specify a container.
+        echo It runs in the container instead of the VM.
