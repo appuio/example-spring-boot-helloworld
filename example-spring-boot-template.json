@@ -361,8 +361,8 @@
         },
         {
             "name": "MYSQL_DRIVER",
-            "description": "Database driver class password",
-            "value": "com.mysql.jdbc.Driver"
+            "description": "Database driver class",
+            "value": "com.mysql.cj.jdbc.Driver"
         }
     ]
 }
