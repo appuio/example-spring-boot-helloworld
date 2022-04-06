@@ -18,3 +18,38 @@ jobs:
         distribution: 'temurin'
     - name: Build with Gradle wrapper
       run: ./gradlew build
+    - name: Run app and test health
+      run: |
+        BOOT_WAIT_SECONDS=10
+
+        # start app in background
+        nohup java -jar build/libs/springboots2idemo-*.jar &
+
+        # wait for server start and test health
+        sleep $BOOT_WAIT_SECONDS
+        HEALTH=$(curl http://localhost:9000/health)
+
+        # stop app
+        PID=$(ps -ef | grep "springboots2idemo-" | grep -v grep | awk '{ print $2 }')
+        if [ -z "$PID" ]
+        then
+            echo App is already stopped or did not start
+            exit 1
+        else
+            echo "stop app (kill $PID)"
+            kill $PID
+        fi
+
+        # print app logs
+        echo "-- logs --"
+        cat nohup.out
+        rm -f nohup.out
+
+        # test app health
+        echo "-- test --"
+        if [ "$HEALTH" = '{"status":"UP"}' ]; then
+            echo "App started healthy"
+        else
+            echo "App not healthy"
+            exit 1
+        fi
