@@ -1,9 +1,8 @@
 FROM fabric8/java-centos-openjdk11-jdk
 
-LABEL maintainer="philipona@puzzle.ch"
+LABEL org.opencontainers.image.authors="midcicd@puzzle.ch"
 
 EXPOSE 8080 9000
-
 
 LABEL io.k8s.description="Example Spring Boot App" \
       io.k8s.display-name="APPUiO Spring Boot App" \
