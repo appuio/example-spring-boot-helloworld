@@ -21,9 +21,10 @@ jobs:
     - name: Run app and test health
       run: |
         BOOT_WAIT_SECONDS=10
+        LOG_FILE=app.log
 
         # start app in background
-        nohup java -jar build/libs/springboots2idemo-*.jar &
+        java -jar build/libs/springboots2idemo-*.jar > $LOG_FILE 2>&1 &
 
         # wait for server start and test health
         sleep $BOOT_WAIT_SECONDS
@@ -42,8 +43,8 @@ jobs:
 
         # print app logs
         echo "-- logs --"
-        cat nohup.out
-        rm -f nohup.out
+        cat $LOG_FILE
+        rm -f $LOG_FILE
 
         # test app health
         echo "-- test --"
