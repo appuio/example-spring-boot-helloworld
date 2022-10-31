@@ -1,4 +1,4 @@
-FROM fabric8/java-centos-openjdk11-jdk
+FROM docker.io/fabric8/java-centos-openjdk11-jdk
 
 LABEL org.opencontainers.image.authors="midcicd@puzzle.ch"
 
