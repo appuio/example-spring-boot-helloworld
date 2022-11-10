@@ -1,13 +1,12 @@
-FROM docker.io/fabric8/java-centos-openjdk11-jdk
+FROM registry.access.redhat.com/ubi9/openjdk-11
 
-LABEL org.opencontainers.image.authors="midcicd@puzzle.ch"
-
-EXPOSE 8080 9000
-
-LABEL io.k8s.description="Example Spring Boot App" \
+LABEL org.opencontainers.image.authors="midcicd@puzzle.ch" \
+      io.k8s.description="Example Spring Boot App" \
       io.k8s.display-name="APPUiO Spring Boot App" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,springboot"
+
+EXPOSE 8080 9000
 
 RUN mkdir -p /tmp/src/
 ADD . /tmp/src/
