@@ -51,3 +51,22 @@ jobs:
         with:
           name: trivy-results-build
           path: trivy-results.txt
+      -
+        uses: addnab/docker-run-action@v3
+        with:
+          image: 'quay.io/appuio/example-spring-boot:pr-${{ github.event.pull_request.number }}'
+          run: echo "hello world"
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    services:
+      spring-boot-app:
+        image: 'quay.io/appuio/example-spring-boot:pr-${{ github.event.pull_request.number }}'
+
+    steps:
+    - name: Run in container
+      run: |
+        echo This job does specify a container.
+        echo It runs in the container instead of the VM.
+        curl http://spring-boot-app:9000/health
