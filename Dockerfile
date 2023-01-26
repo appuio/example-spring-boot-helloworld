@@ -1,10 +1,10 @@
-FROM registry.access.redhat.com/ubi9/openjdk-11
+FROM registry.access.redhat.com/ubi9/openjdk-17
 
 LABEL org.opencontainers.image.authors="midcicd@puzzle.ch" \
-      io.k8s.description="Example Spring Boot App" \
+      io.k8s.description="APPUiO Example Spring Boot App" \
       io.k8s.display-name="APPUiO Spring Boot App" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,springboot"
+      io.openshift.tags="springboot"
 
 EXPOSE 8080 9000
 
