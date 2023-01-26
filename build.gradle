@@ -27,7 +27,7 @@ dependencies {
 	implementation('io.micrometer:micrometer-registry-prometheus')
 	compileOnly('org.springframework.boot:spring-boot-starter-validation')
 	runtimeOnly('com.h2database:h2')
-	runtimeOnly('mysql:mysql-connector-java:5.1.49')
+	runtimeOnly('mysql:mysql-connector-java:8.0.32')
 	runtimeOnly('org.postgresql:postgresql')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
