@@ -18,6 +18,6 @@ jobs:
         env:
           PR_NUMBER: '${{ github.event.pull_request.number }}'
           QUAYIO_API_TOKEN: '${{ secrets.QUAYIO_API_TOKEN }}'
-          REPOSITORY: '${{ github.repository }}'
+          REPOSITORY: 'appuio/example-spring-boot'
         run: |
           curl -X DELETE -H "Authorization: Bearer ${QUAYIO_API_TOKEN}" https://quay.io/api/v1/repository/${REPOSITORY}/tag/pr-${PR_NUMBER}
