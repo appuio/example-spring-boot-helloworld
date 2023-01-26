@@ -1,13 +1,13 @@
 plugins {
   id 'java'
-  id 'org.springframework.boot' version '2.7.8'
+  id 'org.springframework.boot' version '3.0.2'
   id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'ch.appuio.techlab'
 version = '0.1.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
   mavenCentral()
