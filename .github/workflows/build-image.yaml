@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build-image:
     runs-on: ubuntu-latest
     steps:
       -
@@ -58,15 +58,15 @@ jobs:
           run: echo "hello world"
 
   test:
-    needs: build
+    needs: build-image
     runs-on: ubuntu-latest
     services:
       spring-boot-app:
         image: 'quay.io/appuio/example-spring-boot:pr-${{ github.event.pull_request.number }}'
-
     steps:
     - name: Run in container
       run: |
-        echo This job does specify a container.
-        echo It runs in the container instead of the VM.
+        echo start and wait
+        sleep 20
+        echo check app
         curl http://spring-boot-app:9000/health
