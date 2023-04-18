@@ -27,7 +27,7 @@ dependencies {
 	implementation('org.liquibase:liquibase-core')
 	implementation('io.micrometer:micrometer-registry-prometheus')
 	implementation('com.h2database:h2')
-	implementation('mysql:mysql-connector-java:8.0.32')
+	implementation('mysql:mysql-connector-java:8.0.33')
 	implementation('org.postgresql:postgresql')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
