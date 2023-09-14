@@ -1,16 +1,37 @@
-name: SLSA build
-
-on:
-  push:
-  
-permissions: read-all
+on: [push]
 
 jobs:
   build:
+    outputs:
+      hashes: ${{ steps.hash.outputs.hashes }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+
+      - name: Build using gradle
+        id: build
+        run: |
+          # Your normal build workflow targets here
+          ./gradlew clean build
+
+      - name: Generate subject
+        id: hash
+        run: |
+          # cd is needed to workaround
+          # https://github.com/slsa-framework/slsa-github-generator/issues/1225
+          # Fix is merged but hasn't shipped yet.
+          cd build/libs
+          echo "hashes=$(sha256sum * | base64 -w0)" >> "$GITHUB_OUTPUT"
+
+  provenance:
+    needs: [build]
     permissions:
-      id-token: write
-      contents: read
       actions: read
-    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@v1.9.0
+      id-token: write
+      contents: write
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.2.2
     with:
-      artifact-list: ./build/libs/example-spring-boot-helloworld-0.1.1-SNAPSHOT-plain.jar
+      base64-subjects: "${{ needs.build.outputs.hashes }}"
+      upload-assets: false # Optional: Upload to a new release
